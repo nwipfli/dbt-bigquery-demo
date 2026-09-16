@@ -71,6 +71,7 @@ def generate_and_load_data():
     for i in range(1, num_customers + 1):
         cust_id = f"CUST-{i:05d}"
         first_name = fake.first_name()
+        last_name = fake.last_name()
         # Synthetic email using RFC 2606 reserved example.com domain to guarantee no real inbox collisions
         email = f"{first_name.lower()}.{last_name.lower()}.{i}@example.com"
         country = random.choices(countries, weights=[50, 10, 10, 8, 8, 7, 7])[0]
