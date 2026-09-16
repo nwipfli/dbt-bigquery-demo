@@ -1,0 +1,30 @@
+# Environment variables
+.env*
+!.env.example
+
+# Python & uv
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/*.tfplan
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+**/.user.yml
+
+# IDE / System
+.idea/
+.vscode/
+.DS_Store

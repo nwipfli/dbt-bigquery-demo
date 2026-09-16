@@ -1,0 +1,12 @@
+ecommerce_profile:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT_ID') }}"
+      dataset: "{{ env_var('DBT_DATASET_PREFIX', 'ecommerce') }}_staging"
+      location: "{{ env_var('GCP_REGION', 'us-central1') }}"
+      threads: 4
+      timeout_seconds: 300
+      priority: interactive

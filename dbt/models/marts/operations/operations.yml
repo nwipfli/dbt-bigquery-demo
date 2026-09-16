@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "Product catalog dimension with calculated margin classification"
+    columns:
+      - name: product_id
+        description: "Primary key for products"
+        tests:
+          - unique
+          - not_null
+      - name: margin_tier
+        description: "Classified margin tier"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['High Margin', 'Medium Margin', 'Standard Margin']
+
+  - name: fct_product_performance
+    description: "Product sales volume and return rate performance metrics"
+    columns:
+      - name: product_id
+        description: "Foreign key / primary dimension for product"
+        tests:
+          - unique
+          - not_null

@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer 360 dimension table enriched with order history and tier segments"
+    columns:
+      - name: customer_id
+        description: "Primary key for customers"
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "Enriched customer first name (synthetic mock data)"
+        meta:
+          is_synthetic: true
+      - name: last_name
+        description: "Enriched customer last name (synthetic mock data)"
+        meta:
+          is_synthetic: true
+      - name: email
+        description: "Enriched customer email (RFC 2606 compliant @example.com)"
+        meta:
+          is_synthetic: true
+      - name: customer_tier
+        description: "Assigned customer tier based on lifetime net spend"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['VIP', 'Regular', 'Occasional', 'Prospect']
+
+  - name: fct_customer_lifetime_value
+    description: "Cohort and geographical customer lifetime value reporting table"
+    columns:
+      - name: signup_cohort_month
+        description: "Year and month of cohort registration"
+        tests:
+          - not_null
+      - name: country
+        description: "Country of registration"
+        tests:
+          - not_null

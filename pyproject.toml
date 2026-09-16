@@ -1,0 +1,14 @@
+[project]
+name = "dbt-bigquery-demo"
+version = "0.1.0"
+description = "dbt BigQuery Multi-Pipeline Demo with Data Lineage"
+requires-python = ">=3.10"
+dependencies = [
+    "dbt-bigquery>=1.8.0,<2.0.0",
+    "google-cloud-bigquery>=3.20.0",
+    "faker>=24.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.uv]
+package = false

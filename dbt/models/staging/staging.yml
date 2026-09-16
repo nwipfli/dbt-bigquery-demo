@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Standardized customer records"
+    columns:
+      - name: customer_id
+        description: "Unique identifier for customers"
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "Standardized customer first name (synthetic mock data)"
+        meta:
+          is_synthetic: true
+      - name: last_name
+        description: "Standardized customer last name (synthetic mock data)"
+        meta:
+          is_synthetic: true
+      - name: email
+        description: "Standardized lowercased customer email (RFC 2606 compliant @example.com)"
+        meta:
+          is_synthetic: true
+
+  - name: stg_products
+    description: "Cleaned product catalog with margins"
+    columns:
+      - name: product_id
+        description: "Unique identifier for products"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: "Order transactions with status"
+    columns:
+      - name: order_id
+        description: "Unique identifier for orders"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_order_items
+    description: "Order line item details with calculated line total"
+    columns:
+      - name: order_item_id
+        description: "Unique identifier for line items"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_payments
+    description: "Payments processed for orders"
+    columns:
+      - name: payment_id
+        description: "Unique identifier for payments"
+        tests:
+          - unique
+          - not_null
