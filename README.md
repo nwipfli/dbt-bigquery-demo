@@ -1,4 +1,12 @@
-# dbt BigQuery Multi-Pipeline Demo with Data Lineage and metadata
+# dbt BigQuery Multi-Pipeline Demo with Data Lineage and Metadata
+
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![dbt-bigquery](https://img.shields.io/badge/dbt--bigquery-v1.8%2B-FF694B.svg)](https://www.getdbt.com/)
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-BigQuery-4285F4.svg)](https://cloud.google.com/bigquery)
+[![Knowledge Catalog](https://img.shields.io/badge/GCP-Knowledge_Catalog-34A853.svg)](https://cloud.google.com/dataplex)
+[![Terraform](https://img.shields.io/badge/Terraform-%3E%3D_1.5.0-7B42BC.svg)](https://www.terraform.io/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg)](https://www.python.org/)
+[![uv](https://img.shields.io/badge/managed_by-uv-DE5FE9.svg)](https://github.com/astral-sh/uv)
 
 A reproducible, enterprise-grade demonstration of **dbt Core** running on **Google BigQuery**, featuring:
 1. **Multi-Hop Data Pipelines & Lineage**: Automatic lineage capture across datasets (`ecommerce_raw` $\rightarrow$ `ecommerce_staging` $\rightarrow$ `ecommerce_marts`) in Google Cloud **Data Lineage API** and **BigQuery Studio**.
@@ -6,7 +14,24 @@ A reproducible, enterprise-grade demonstration of **dbt Core** running on **Goog
 
 ---
 
-## 🏛️ Architecture & End-to-End Workflow
+## 📑 Table of Contents
+
+- [🏛️ Architecture & End-to-End Workflow](#architecture)
+- [📊 dbt Pipelines & Lineage DAG](#pipelines)
+- [📋 Knowledge Catalog dbt Metadata Ingestion Details](#metadata-ingestion)
+- [📁 Repository Structure](#repository-structure)
+- [🛠️ Prerequisites](#prerequisites)
+- [🚀 Running the Demo](#running-the-demo)
+- [🔍 Exploring Data Lineage in BigQuery Studio](#exploring-lineage)
+- [📚 Exploring Imported dbt Metadata in Knowledge Catalog](#exploring-metadata)
+- [🧹 Teardown & Cleanup](#cleanup)
+- [🤝 Contributing](#contributing)
+- [📄 License](#license)
+- [👤 Author & Acknowledgments](#author)
+
+---
+
+## <a id="architecture"></a>🏛️ Architecture & End-to-End Workflow
 
 The demo brings together **Terraform**, **uv / Python**, **dbt Core**, **BigQuery**, and **Knowledge Catalog**:
 
@@ -68,7 +93,7 @@ flowchart TD
 
 ---
 
-## 📊 dbt Pipelines & Lineage DAG
+## <a id="pipelines"></a>📊 dbt Pipelines & Lineage DAG
 
 The data model reflects an e-commerce platform across 3 domain-specific pipelines:
 
@@ -139,7 +164,7 @@ flowchart TD
 
 ---
 
-## 📋 Knowledge Catalog dbt Metadata Ingestion Details
+## <a id="metadata-ingestion"></a>📋 Knowledge Catalog dbt Metadata Ingestion Details
 
 Google Cloud Knowledge Catalog supports native dbt-core metadata ingestion via the `gcloud alpha dataplex dbt metadata-jobs` CLI tool suite. This transfers the logical dbt graph, schema definitions, test results, column descriptions, and freshness metadata directly into Google Cloud's centralized data governance catalog.
 
@@ -232,7 +257,7 @@ gcloud alpha dataplex dbt metadata-jobs create \
 
 ---
 
-## 📁 Repository Structure
+## <a id="repository-structure"></a>📁 Repository Structure
 
 ```
 .
@@ -271,7 +296,7 @@ gcloud alpha dataplex dbt metadata-jobs create \
 
 ---
 
-## 🛠️ Prerequisites
+## <a id="prerequisites"></a>🛠️ Prerequisites
 
 Ensure the following tools are installed on your machine:
 
@@ -300,9 +325,16 @@ Ensure the following tools are installed on your machine:
 
 ---
 
-## 🚀 Running the Demo
+## <a id="running-the-demo"></a>🚀 Running the Demo
 
-### 1. Configure Environment Variables
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/nwipfli/dbt-bigquery-demo.git
+cd dbt-bigquery-demo
+```
+
+### 2. Configure Environment Variables
 Copy `.env.example` to `.env` and set your GCP project and region:
 
 ```bash
@@ -317,7 +349,7 @@ DBT_DATASET_PREFIX="ecommerce"
 DATAPLEX_ENTRY_GROUP="dbt-metadata-ingestion"
 ```
 
-### 2. Execute the All-in-One Orchestrator
+### 3. Execute the All-in-One Orchestrator
 Run the provided runner script:
 
 ```bash
@@ -364,7 +396,7 @@ Executes dbt commands in the exact sequence required for full Knowledge Catalog 
 
 ---
 
-## 🔍 Exploring Data Lineage in BigQuery Studio
+## <a id="exploring-lineage"></a>🔍 Exploring Data Lineage in BigQuery Studio
 
 When dbt runs BigQuery SQL transformations, BigQuery automatically emits lineage events to the Google Cloud Data Lineage API.
 
@@ -379,7 +411,7 @@ When dbt runs BigQuery SQL transformations, BigQuery automatically emits lineage
 
 ---
 
-## 📚 Exploring Imported dbt Metadata in Knowledge Catalog
+## <a id="exploring-metadata"></a>📚 Exploring Imported dbt Metadata in Knowledge Catalog
 
 Once metadata ingestion completes, all dbt project metadata is searchable and viewable directly in Knowledge Catalog:
 
@@ -411,7 +443,7 @@ gcloud alpha dataplex dbt metadata-jobs create \
 
 ---
 
-## 🧹 Teardown & Cleanup
+## <a id="cleanup"></a>🧹 Teardown & Cleanup
 
 To destroy all provisioned BigQuery datasets, tables, Knowledge Catalog entry groups, and GCS buckets:
 
@@ -419,3 +451,50 @@ To destroy all provisioned BigQuery datasets, tables, Knowledge Catalog entry gr
 ./cleanup.sh
 ```
 *(Or `./run_demo.sh --destroy`)*
+
+---
+
+## <a id="contributing"></a>🤝 Contributing
+
+Contributions, feedback, and issue reports are welcome!
+
+1. **Issues**: If you discover a bug, edge case, or have an enhancement suggestion, please open an issue in the [GitHub Issue Tracker](https://github.com/nwipfli/dbt-bigquery-demo/issues).
+2. **Pull Requests**:
+   - Fork the repository and create a feature branch (`git checkout -b feature/my-feature`).
+   - Ensure SQL formatting and dbt modeling conventions are followed.
+   - Commit your changes with clear, conventional messages (`git commit -m "feat: add customer retention mart"`).
+   - Push to your branch (`git push origin feature/my-feature`) and open a Pull Request.
+
+---
+
+## <a id="license"></a>📄 License
+
+This project is licensed under the **Apache License, Version 2.0**.
+
+See the [LICENSE](LICENSE) file for the full license text and terms.
+
+```text
+Copyright 2026 Nicolas Wipfli
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+---
+
+## <a id="author"></a>👤 Author & Acknowledgments
+
+- **Author**: Nicolas Wipfli ([@nwipfli](https://github.com/nwipfli))
+- **Documentation References**:
+  - [Google Cloud Data Lineage Overview](https://cloud.google.com/data-catalog/docs/concepts/about-data-lineage)
+  - [Google Cloud Knowledge Catalog dbt Metadata Transfer](https://docs.cloud.google.com/dataplex/docs/dbt-transfer)
+  - [dbt-bigquery Documentation](https://docs.getdbt.com/reference/warehouse-setups/bigquery-setup)
